@@ -24,7 +24,7 @@ class PlatformDetectionHelper extends AppHelper {
    */
   public function mobileOverrideResetLink($title = 'View Mobile Site') {
     return $this->Html->link($title, array(
-    	'controller' => 'platform_detection',
+      'controller' => 'platform_detection',
       'action' => 'mobileoverride_reset'
     ));
   }
