@@ -54,7 +54,6 @@ class PlatformDetectionComponent extends Object {
    * @return array
    */
   protected function _getForceTheme() {
-    Configure::load('platform_detection');
     $forceTheme = Configure::read('PlatformDetection.forceTheme');
     if (empty($forceTheme)) {
       $forceTheme = isset($_COOKIE['PlatformDetection_forceTheme'])
