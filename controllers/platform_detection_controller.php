@@ -1,6 +1,6 @@
 <?php
 
-class PlatformDetectionController extends PlatformDetectionAppController {
+class PlatformDetectionController extends AppController {
   var $name = 'PlatformDetection';
   var $uses = array();
   var $autoRender = false;
