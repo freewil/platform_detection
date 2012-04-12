@@ -3,6 +3,12 @@
 class PlatformDetectionComponent extends Object {
   
   /**
+   * The current theme being used by the controller
+   * @var array
+   */
+  protected $_currentTheme;
+  
+  /**
    * Set theme of controller based on user's platform. If the user is using
    * a mobile device, a generic 'mobile' theme will be used as a second 
    * priority to the platform-specific theme.
@@ -20,8 +26,22 @@ class PlatformDetectionComponent extends Object {
     if (empty($theme)) {
       $theme = $this->_getUnforceTheme();
     }
+    $theme = $this->_filterThemeNames($theme);
+    $controller->theme = $this->_currentTheme = $theme;
     
-    $controller->theme = $this->_filterThemeNames($theme);
+    // allow theme to be read from view helper
+    $controller->params['PlatformDetection'] = array('theme' => $theme);
+    
+    header('X-Mobile-Theme: ' . in_array('mobile', $theme) ? 'true' : 'false');
+  }
+  
+  /**
+   * The current theme being used by the controller.
+   * 
+   * @return array
+   */
+  public function getCurrentTheme() {
+    return $this->_currentTheme;
   }
   
   /**
@@ -61,7 +81,7 @@ class PlatformDetectionComponent extends Object {
     if (empty($forceTheme)) {
       $forceTheme = isset($_COOKIE['PlatformDetection_forceTheme'])
         ? json_decode($_COOKIE['PlatformDetection_forceTheme'], false, 2)
-        : env('HTTP_X_VARNISH_THEME');
+        : array();
     }
     
     return (array)$forceTheme;

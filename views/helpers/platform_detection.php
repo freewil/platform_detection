@@ -41,5 +41,23 @@ class PlatformDetectionHelper extends AppHelper {
     $forceTheme = json_decode($_COOKIE['PlatformDetection_forceTheme'], false, 2);
     return is_array($forceTheme) && in_array('mobileoverride', $forceTheme);
   }
+  
+  /**
+   * Check whether the current theme being used is mobile or not.
+   * 
+   * @return boolean
+   */
+  public function isMobile() {
+    return in_array('mobile', $this->params['PlatformDetection']['theme']);
+  }
+  
+  /**
+   * Current theme.
+   * 
+   * @return array
+   */
+  public function theme() {
+    return $this->params['PlatformDetection']['theme'];
+  }
 
 }
