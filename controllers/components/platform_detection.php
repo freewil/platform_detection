@@ -49,7 +49,10 @@ class PlatformDetectionComponent extends Object {
   }
   
   /**
-   * Get the forced theme via a configuration setting or cookie if one exists.
+   * Get the forced theme (if any) in this order:
+   *   configuration setting 
+   *   PlatformDetection_forceTheme cookie
+   *   X-Varnish-Theme request header
    * 
    * @return array
    */
@@ -58,7 +61,7 @@ class PlatformDetectionComponent extends Object {
     if (empty($forceTheme)) {
       $forceTheme = isset($_COOKIE['PlatformDetection_forceTheme'])
         ? json_decode($_COOKIE['PlatformDetection_forceTheme'], false, 2)
-        : array();
+        : env('HTTP_X_VARNISH_THEME');
     }
     
     return (array)$forceTheme;
