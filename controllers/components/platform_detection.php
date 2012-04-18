@@ -97,7 +97,7 @@ class PlatformDetectionComponent extends Object {
     $forceTheme = Configure::read('PlatformDetection.forceTheme');
     if (empty($forceTheme)) {
       $forceTheme = isset($_COOKIE['PlatformDetection_forceTheme'])
-        ? json_decode($_COOKIE['PlatformDetection_forceTheme'], false, 2)
+        ? json_decode(stripslashes($_COOKIE['PlatformDetection_forceTheme']), false, 2)
         : array();
     }
     
