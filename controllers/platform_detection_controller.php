@@ -8,6 +8,7 @@ class PlatformDetectionController extends AppController {
   
   public function mobileoverride() {
     $this->PlatformDetection->writeThemeCookie('mobileoverride');
+    $this->PlatformDetection->setIsMobileCookie(false);
     $this->redirect($this->referer('/', true));
   }
   
@@ -20,14 +21,8 @@ class PlatformDetectionController extends AppController {
     Configure::write('debug', 0);
     $theme = $this->PlatformDetection->getCurrentTheme();
     $isMobile = in_array('mobile', $theme) ? 'true' : 'false';
+    $this->PlatformDetection->setIsMobileCookie(in_array('mobile', $theme));
     header('Content-Type: application/json');
-    setcookie(
-    	'PlatformDetection_isMobile', 
-      $isMobile,
-      time() + 365 * 24 * 60 * 60,
-      '/'
-    );
     echo json_encode(array('isMobile' => $isMobile));
   }
-  
 }

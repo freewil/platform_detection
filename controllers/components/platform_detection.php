@@ -36,6 +36,23 @@ class PlatformDetectionComponent extends Object {
   }
   
   /**
+   * Set a cookie on whether the platform is mobile or not.
+   * 
+   * @param boolean $isMobile
+   * @retun void
+   */
+  public function setIsMobileCookie($isMobile) {
+    // use boolean string in cookie
+    $isMobile = $isMobile ? 'true' : 'false';
+    setcookie(
+    	'PlatformDetection_isMobile', 
+      $isMobile,
+      time() + 365 * 24 * 60 * 60,
+      '/'
+    );
+  }
+  
+  /**
    * The current theme being used by the controller.
    * 
    * @return array
